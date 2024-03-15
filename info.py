@@ -1,9 +1,36 @@
 from datetime import datetime as dt
 import re
+from AddressBook import AddressBook
 from abc import ABC, abstractmethod
 
+class AbstractShow(ABC):
+    @abstractmethod
+    def help(self):
+        pass
+        
+    @abstractmethod   
+    def show_contacts(self, addressbook: AddressBook):
+        pass
+class Show(AbstractShow):
+    def help(self):
+        message = "Some information"
+        
+        
+    def show_contacts(self, addressbook: AddressBook):
+        self.addressbook = AddressBook()
+        
+        return str(self.addressbook)
+        
+        
+class AbstractField(ABC):
+    ...
 
-class Record:
+class AbstractRecord(ABC):
+    @abstractmethod
+    def days_to_birthday(self):
+        pass
+
+class Record(AbstractRecord):
 
     def __init__(self, name, phones='', birthday='', email='', status='', note=''):
 
@@ -25,14 +52,14 @@ class Record:
         return result.days
 
 
-class Field(ABC):
+class Field(AbstractField):
 
     @abstractmethod
     def __getitem__(self):
         pass
 
 
-class Name(Field):
+class Name(AbstractField):
     def __init__(self, value):
         self.value = value
 
@@ -40,7 +67,7 @@ class Name(Field):
         return self.value
 
 
-class Phone(Field):
+class Phone(AbstractField):
 
     def __init__(self, value=''):
         while True:
@@ -64,7 +91,7 @@ class Phone(Field):
         return self.value
 
 
-class Birthday(Field):
+class Birthday(AbstractField):
 
     def __init__(self, value=''):
         while True:
@@ -87,7 +114,7 @@ class Birthday(Field):
         return self.value
 
 
-class Email(Field):
+class Email(AbstractField):
 
     def __init__(self, value=''):
         while True:
@@ -108,7 +135,7 @@ class Email(Field):
         return self.value
 
 
-class Status(Field):
+class Status(AbstractField):
 
     def __init__(self, value=''):
         while True:
@@ -129,7 +156,7 @@ class Status(Field):
         return self.value
 
 
-class Note(Field):
+class Note(AbstractField):
     def __init__(self, value):
         self.value = value
 
